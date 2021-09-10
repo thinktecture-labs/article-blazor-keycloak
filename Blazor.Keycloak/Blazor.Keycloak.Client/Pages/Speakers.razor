@@ -1,0 +1,30 @@
+﻿@page "/speakers"
+@using Blazor.Keycloak.Shared.Models
+@attribute [Authorize(Roles = "admin")]
+
+
+@if (!isLoading)
+{
+	<div style="overflow: hidden; padding: 24px 0 70px 0;">
+		<Table Context="s" TItem="Speaker" DataSource="@SpeakerList" Total="SpeakerList.Count" OnRowClick="EventUtil.AsNonRenderingEventHandler(() => RowClicked())" PageSize="50" ScrollY="100%">
+			<Column @bind-Field="@s.FirstName" />
+			<Column @bind-Field="@s.LastName" />
+			<Column @bind-Field="@s.Email" />
+			<ActionColumn Width="100">
+				<Popconfirm Title="Are you sure delete this speaker?"
+						OnConfirm="() => DeleteSpeaker(s.Id)"
+						OnCancel="EventUtil.AsNonRenderingEventHandler(() => Cancel())"
+						OkText="Yes"
+						CancelText="No">
+					<a>Delete</a>
+				</Popconfirm>
+			</ActionColumn>
+		</Table>
+	</div>
+}
+else
+{
+	<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+		<Spin size="large" />
+	</div>
+}

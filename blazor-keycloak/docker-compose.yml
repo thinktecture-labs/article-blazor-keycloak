@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  api-database:
+    extends:
+      file: ./common.yml
+      service: api-database
+  identity-provider:
+    extends:
+      file: ./common.yml
+      service: identity-provider
+volumes:
+  api-database:

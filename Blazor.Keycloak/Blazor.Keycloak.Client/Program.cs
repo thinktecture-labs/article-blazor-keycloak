@@ -18,8 +18,7 @@ namespace Blazor.Keycloak.Client
             builder.Services.AddScoped(typeof(AccountClaimsPrincipalFactory<RemoteUserAccount>), typeof(CustomAccountFactory));
             builder.Services.AddScoped<CustomAuthorizationHeaderHandler>();
             builder.Services.AddScoped<DataService>();
-            builder.Services.AddHttpClient("WebAPI",
-                    client => client.BaseAddress = new Uri("http://localhost:5002/"))
+            builder.Services.AddHttpClient("WebAPI", client => client.BaseAddress = new Uri("http://localhost:5002/"))
                 .AddHttpMessageHandler<CustomAuthorizationHeaderHandler>();
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient("WebAPI"));

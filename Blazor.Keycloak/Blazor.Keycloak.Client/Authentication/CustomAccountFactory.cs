@@ -10,12 +10,9 @@ namespace Blazor.Keycloak.Client.Authentication
 {
     public class CustomAccountFactory : AccountClaimsPrincipalFactory<RemoteUserAccount>
     {
-        private readonly HttpClient _httpClient;
-
         public CustomAccountFactory(IAccessTokenProviderAccessor accessor, HttpClient httpClient)
             : base(accessor)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
         public async override ValueTask<ClaimsPrincipal> CreateUserAsync(

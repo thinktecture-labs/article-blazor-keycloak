@@ -107,6 +107,26 @@
             align-items: center;
         }
 
+
+.ant-layout-header {
+    color: #ff584f !important;
+    background-color: white !important;
+}
+
+.ant-menu.ant-menu-dark,
+.ant-layout-sider,
+.ant-btn-primary {
+    background-color: #ff584f !important;
+}
+
+.ant-btn-primary {
+    border-color: #ff584f !important;
+}
+
+.ant-menu-item.ant-menu-item-selected {
+    background-color: #3d6fb4 !important;
+}
+
 .ant-table-wrapper,
 .ant-table-wrapper .ant-spin-nested-loading,
 .ant-spin-nested-loading div,

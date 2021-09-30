@@ -13,7 +13,7 @@ namespace Blazor.Keycloak.Client.Shared
         [Inject] private SignOutSessionStateManager SignOutManager { get; set; }
 
         private bool collapsed;
-        private string[] selectedKeys = new[] { "index" };
+        private string[] selectedKeys = new[] { "/" };
 
         private async Task BeginSignOut()
         {
@@ -27,9 +27,18 @@ namespace Blazor.Keycloak.Client.Shared
             collapsed = !collapsed;
         }
 
-        private void BeginSignIn()
+        private string GetInitials(string name)
         {
-            Navigation.NavigateTo("authentication/login");
+            var nameSplit = name.Split(new string[] { ",", " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            var initials = "";
+
+            foreach (string item in nameSplit)
+            {
+                initials += item.Substring(0, 1).ToUpper();
+            }
+
+            return initials;
         }
 
         private void SelectedKeyChanged(string[] keys)
@@ -37,6 +46,7 @@ namespace Blazor.Keycloak.Client.Shared
             if (selectedKeys.Except(keys).Count() > 0)
             {
                 var navigationKey = keys.FirstOrDefault();
+                Console.WriteLine(navigationKey);
                 if (!String.IsNullOrWhiteSpace(navigationKey))
                 {
                     Navigation.NavigateTo(navigationKey);

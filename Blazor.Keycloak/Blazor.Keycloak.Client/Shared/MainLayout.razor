@@ -5,7 +5,18 @@
 		<Authorized>
 			<Sider Collapsible Collapsed=@collapsed NoTrigger>
 				<div class="logo">
-					<span class="truncate">@context.User.Identity.Name</span>
+					@if (!String.IsNullOrWhiteSpace(context?.User?.Identity?.Name))
+					{
+
+						@if (collapsed)
+						{
+							<span>@GetInitials(context.User.Identity.Name)</span>
+						}
+						else
+						{
+							<span class="truncate">@context.User.Identity.Name</span>
+						}
+					}
 				</div>
 				<Menu Theme="MenuTheme.Dark" Mode="MenuMode.Inline" SelectedKeysChanged="SelectedKeyChanged" DefaultSelectedKeys="@selectedKeys">
 					<MenuItem Key="/">

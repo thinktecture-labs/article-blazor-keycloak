@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Blazor.Keycloak.Client.Authentication;
 using Blazor.Keycloak.Client.Utils;
 using Blazor.Keycloak.Client.Services;
-using Microsoft.AspNetCore.Authentication;
-using Blazor.Keycloak.Shared.Authorization;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
+using System;
+using Microsoft.Extensions.Configuration;
 
 namespace Blazor.Keycloak.Client
 {

@@ -3,6 +3,12 @@ using Blazor.Keycloak.Api.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Net.Http;
+using Microsoft.AspNetCore.Builder;
 
 namespace Blazor.Keycloak.Api
 {

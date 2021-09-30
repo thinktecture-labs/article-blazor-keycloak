@@ -3,6 +3,7 @@ using Blazor.Keycloak.Shared.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Blazor.Keycloak.Api.Authorization;
 

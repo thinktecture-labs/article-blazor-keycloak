@@ -1,4 +1,5 @@
 using Blazor.Keycloak.Shared.Models;
+using System.Collections.Generic;
 
 namespace Blazor.Keycloak.Api.Models
 {

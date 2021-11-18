@@ -1,0 +1,46 @@
+﻿@page "/conferences"
+@using System.ComponentModel
+@using Blazor.Keycloak.Shared.Models
+
+<AuthorizeView>
+	<Authorized>
+		@if (!isLoading)
+		{
+			<div style="overflow: hidden; padding: 24px 0 70px 0;">
+				<Table Context="c" TItem="Contribution" DataSource="@Contributions" Total="Contributions.Count" OnRowClick="EventUtil.AsNonRenderingEventHandler(() => RowClicked())" PageSize="50" ScrollY="100%">
+					<Column @bind-Field="@c.Title" />
+					<Column @bind-Field="@c.Date" />
+					<Column @bind-Field="@c.Tags">
+						@foreach (var tag in c.Tags)
+						{
+							var color = tag.Length > 10 ? "geekblue" : "green";
+							if (tag == "Angular")
+							{
+								color = "volcano";
+							}
+						<Tag Color="@color">@tag</Tag>
+						}
+					</Column>
+					@if (@context.User.IsInRole("admin"))
+					{
+						<ActionColumn Width="100">
+							<Popconfirm Title="Are you sure delete this contribution?"
+										OnConfirm="() => DeleteContribution(c.Id)"
+										OnCancel="EventUtil.AsNonRenderingEventHandler(() => Cancel())"
+										OkText="Yes"
+										CancelText="No">
+								<a>Delete</a>
+							</Popconfirm>
+						</ActionColumn>
+					}
+				</Table>
+			</div>
+		}
+		else
+		{
+			<div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+				<Spin size="large" />
+			</div>
+		}
+	</Authorized>
+</AuthorizeView>

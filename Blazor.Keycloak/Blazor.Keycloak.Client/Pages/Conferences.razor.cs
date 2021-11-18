@@ -1,5 +1,4 @@
-﻿
-using Blazor.Keycloak.Client.Services;
+﻿using Blazor.Keycloak.Client.Services;
 using Blazor.Keycloak.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -8,41 +7,40 @@ using System.Threading.Tasks;
 
 namespace Blazor.Keycloak.Client.Pages
 {
-    public partial class Speakers
+    public partial class Conferences
     {
         [Inject] public DataService DataService { get; set; }
 
         private bool isLoading = false;
-        private ICollection<Speaker> SpeakerList = new List<Speaker>();
+        private ICollection<Contribution> Contributions = new List<Contribution>();
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadSpeakers();
+            await LoadContributions();
             await base.OnInitializedAsync();
         }
 
+        private async Task LoadContributions()
+        {
+            isLoading = true;
+            Contributions = await DataService.GetContributionsAsync();
+            isLoading = false;
+        }
 
         private void RowClicked()
         {
             Console.WriteLine($"Row clicked...");
         }
 
-        private async Task DeleteSpeaker(int id)
+        private async Task DeleteContribution(int id)
         {
-            await DataService.RemoveSpeakerAsync(id);
-            await InvokeAsync(async () => await LoadSpeakers());
+            await DataService.RemoveContributionAsync(id);
+            await InvokeAsync(async () => await LoadContributions());
         }
 
         private void Cancel()
         {
             Console.WriteLine("Cancel contribution");
-        }
-
-        private async Task LoadSpeakers()
-        {
-            isLoading = true;
-            SpeakerList = await DataService.GetSpeakersAsync();
-            isLoading = false;
         }
     }
 }

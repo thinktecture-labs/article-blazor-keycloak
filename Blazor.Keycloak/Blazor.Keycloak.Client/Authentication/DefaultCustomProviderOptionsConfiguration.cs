@@ -12,7 +12,15 @@ namespace Blazor.Keycloak.Client.Authentication
 
         public DefaultCustomProviderOptionsConfiguration(NavigationManager navigationManager) => _navigationManager = navigationManager;
 
-        public void Configure(RemoteAuthenticationOptions<CustomOidcOptions> options)
+        public void PostConfigure(string name, RemoteAuthenticationOptions<CustomOidcOptions> options)
+        {
+            if (string.Equals(name, Options.DefaultName))
+            {
+                Configure(options);
+            }
+        }
+
+        private void Configure(RemoteAuthenticationOptions<CustomOidcOptions> options)
         {
             options.UserOptions.AuthenticationType ??= options.ProviderOptions.ClientId;
 
@@ -30,14 +38,6 @@ namespace Blazor.Keycloak.Client.Authentication
                 logoutUri ??= "authentication/logout-callback";
                 options.ProviderOptions.PostLogoutRedirectUri = _navigationManager
                     .ToAbsoluteUri(logoutUri).AbsoluteUri;
-            }
-        }
-
-        public void PostConfigure(string name, RemoteAuthenticationOptions<CustomOidcOptions> options)
-        {
-            if (string.Equals(name, Options.DefaultName))
-            {
-                Configure(options);
             }
         }
     }

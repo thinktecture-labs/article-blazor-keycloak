@@ -12,8 +12,8 @@ namespace Blazor.Keycloak.Client.Shared
         [Inject] private NavigationManager Navigation { get; set; }
         [Inject] private SignOutSessionStateManager SignOutManager { get; set; }
 
-        private bool collapsed;
-        private string[] selectedKeys = new[] { "/" };
+        private bool collapsed = true;
+        private string[] selectedKeys = new[] { "conferences" };
 
         private async Task BeginSignOut()
         {

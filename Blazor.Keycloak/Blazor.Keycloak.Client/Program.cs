@@ -21,10 +21,13 @@ namespace Blazor.Keycloak.Client
             builder.Services.AddScoped(typeof(AccountClaimsPrincipalFactory<RemoteUserAccount>), typeof(CustomAccountFactory));
             builder.Services.AddScoped<CustomAuthorizationHeaderHandler>();
             builder.Services.AddScoped<DataService>();
-            builder.Services.AddHttpClient("WebAPI", client => client.BaseAddress = new Uri("http://localhost:5002/"))
+
+
+            var backendOrigin = builder.Configuration["BackendOrigin"]!;
+            builder.Services
+                .AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("WebAPI"))
+                .AddHttpClient("WebAPI", client => client.BaseAddress = new Uri(backendOrigin))
                 .AddHttpMessageHandler<CustomAuthorizationHeaderHandler>();
-            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
-                .CreateClient("WebAPI"));
 
 
             builder.Services.AddCustomAuthentication(options =>

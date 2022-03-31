@@ -40,11 +40,7 @@ namespace Blazor.Keycloak.Client.Services
 
         public async Task<ICollection<Speaker>> GetSpeakersAsync(CancellationToken cancellationToken = default)
         {
-            if (_speakers == null)
-            {
-                _speakers = await GetCollectionAsync<Speaker>("speakers", cancellationToken);
-            }
-
+            _speakers = await GetCollectionAsync<Speaker>("speakers", cancellationToken);
             return _speakers.ToList();
         }
 
